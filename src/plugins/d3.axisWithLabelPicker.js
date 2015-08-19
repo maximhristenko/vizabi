@@ -103,17 +103,17 @@
         
         axis.highlightValueRun = function(g){
             var orient = axis.orient()=="top"||axis.orient()=="bottom"?HORIZONTAL:VERTICAL;
-            
+
             g.selectAll(".tick")
                 .each(function(d,t){
                     d3.select(this).select("text")
                         .transition()
                         .duration(highlightTransDuration)
                         .ease("linear")
-                        .style("opacity", highlightValue=="none"? 1 : Math.min(1, Math.pow(
-                                    Math.abs(axis.scale()(d)-axis.scale()(highlightValue))/
-                                    (axis.scale().range()[1] - axis.scale().range()[0])*5, 2) 
-                              ))
+                        .style("opacity", highlightValue=="none"? 1 : orient=="horizontal axis"?1: Math.min(1, Math.pow(
+                                Math.abs(axis.scale()(d)-axis.scale()(highlightValue))/
+                                (axis.scale().range()[1] - axis.scale().range()[0])*5, 2)
+                        ))
                 })
             
             
@@ -125,11 +125,15 @@
                     + (orient==HORIZONTAL?axis.scale()(highlightValue):0) +","
                     + (orient==VERTICAL?axis.scale()(highlightValue):0) + ")"
                 )
-                
+           if(orient == "horizontal axis"){
+               g.select('.vzb-axis-value').select("text")
+                   .text(axis.tickFormat()(highlightValue=="none"?0:highlightValue))
+                   .style("opacity",(highlightValue=="none"?0:0));
+           }else{
             g.select('.vzb-axis-value').select("text")
                 .text(axis.tickFormat()(highlightValue=="none"?0:highlightValue))
                 .style("opacity",(highlightValue=="none"?0:1));
-
+           }
             highlightValue = null;
         }
         
