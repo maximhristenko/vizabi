@@ -44,7 +44,7 @@ describe('* Base: Translation', function() {
             },
             update: function(evt) {
                 var time = this.model.time.value;
-                var items = this.model.label.getKeys({
+                var items = this.model.label.getItems({
                     time: time
                 });
                 var html = '';

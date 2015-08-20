@@ -11,17 +11,20 @@ module.exports = {
         partials: preview_src + 'templates/partials/*.hbs',
         data: preview_src + 'config/*.{json,yml}'
     },
-    prod: {
+    dev: {
+        options: {
+            production: false
+        },
         files: {
             'preview/': [preview_src + '_pages/**/*.hbs']
         }
     },
-    fullscreen: {
+    prod: {
         options: {
-            layout: preview_src + 'templates/layouts/fullscreen.hbs',
+            production: true
         },
         files: {
-            'preview/fullscreen/': [preview_src + '_pages/**/*.hbs']
+            'preview/': [preview_src + '_pages/**/*.hbs']
         }
     }
 

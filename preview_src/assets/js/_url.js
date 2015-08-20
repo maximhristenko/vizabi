@@ -45,7 +45,7 @@ function updateURL(optimize) {
     }
 
     //optimize for timeslider
-    throttle(update, 1000);
+    throttle(update, 10);
     // if(optimize) {
     // }
     // else {
@@ -55,20 +55,16 @@ function updateURL(optimize) {
 }
 
 function parseURL() {
-    var loc = window.location.toString();
-    var hash = null;
-    if (loc.indexOf('#') >= 0) {
-      hash = loc.substring(loc.indexOf('#') + 1);
-    }
+    var hash = window.location.hash;
 
     if (hash) {
-        options = URLON.parse(hash);
+        options = URLON.parse(hash.replace("#", ""));
 
         URL.state = options.state;
         URL.lang = options.lang;
 
-        if(options.width && options.height && placeholder && setDivSize) {
-            setDivSize(placeholder, container, options.width, options.height);
+        if(setDivSize && options.width && options.height) {
+            setDivSize(placeholder, options.width, options.height);
             if(options.fullscreen) {
                 setFullscreen();
             }

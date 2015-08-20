@@ -63,7 +63,7 @@ describe('* Misc: HTML5 Support ', function() {
                 var curr_time = this.model.time.value;
                 var i;
                 var canvas = this.element;
-                var pieData = info.getKeys({
+                var pieData = info.getItems({
                     time: curr_time
                 }).map(function(d) {
                     return parseInt(info.getValue(d), 10);
